@@ -62,7 +62,7 @@ endfunction(AddCompilerFlags)
 function(SetLinkerSubsystem target)
 	if(WIN32) # Check if we are on Windows
 		if(MSVC) # Check if we are using the Visual Studio compiler
-			set_target_properties(${target} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS /ENTRY:\"mainCRTStartup\" /NODEFAULTLIB:\"msvcrt\"")
+			set_target_properties(${target} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE /ENTRY:\"mainCRTStartup\" /NODEFAULTLIB:\"msvcrt\"")
 		elseif(CMAKE_COMPILER_IS_GNUCXX)
 			# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwindows") # Not tested
 		else()
