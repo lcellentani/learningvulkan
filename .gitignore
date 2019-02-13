@@ -1,0 +1,45 @@
+.svn
+.gdb_history
+.DS_Store
+
+.build/
+.vs/
+
+Win32/
+Debug/
+Release/
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+*.ilk
+*.pdb
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.ilk
+*.pdb
+*.bat
+*.exp
+
+!media/**
+!/3rdparty/glfw/lib/**
