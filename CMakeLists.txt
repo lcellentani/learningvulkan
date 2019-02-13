@@ -19,8 +19,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR})
 include_directories("${PROJECT_SOURCE_DIR}/3rdparty/glm")
 include_directories("${PROJECT_SOURCE_DIR}/3rdparty/glfw/include")
 include_directories("${PROJECT_SOURCE_DIR}/3rdparty/stb")
+include_directories("${PROJECT_SOURCE_DIR}/3rdparty/khronos/vulkan/include")
 
 link_directories("${PROJECT_SOURCE_DIR}/3rdparty/glfw/lib/x86")
+link_directories("${PROJECT_SOURCE_DIR}/3rdparty/khronos/vulkan/lib/x86")
 
 include(${PROJECT_SOURCE_DIR}/source/CMakeCommon.cmake)
 #add_subdirectory(source/common)
@@ -30,4 +32,4 @@ if (MSVC)
 	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT 00-hellotriangle)
 endif()
 
-#file(COPY ${PROJECT_SOURCE_DIR}/3rdparty/glfw/lib/x86/glfw3.dll DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${PROJECT_SOURCE_DIR}/3rdparty/glfw/lib/x86/glfw3.dll DESTINATION ${CMAKE_BINARY_DIR})

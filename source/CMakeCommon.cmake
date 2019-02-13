@@ -76,13 +76,8 @@ function(SetLinkerSubsystem target)
 endfunction(SetLinkerSubsystem)
 
 function(SetupSample target)
-target_include_directories(${target}
-	PUBLIC
-		"${PROJECT_SOURCE_DIR}/source/common"
-)
-target_link_libraries(${target}
-	common
-	opengl32.lib
-	glfw3.lib
-)
+	target_link_libraries(${target}
+		glfw3.lib
+		vulkan-1.lib
+	)
 endfunction(SetupSample)
