@@ -46,9 +46,10 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
 
 struct QueueFamilyIndices {
 	std::optional<uint32_t> graphicsFamily;
+	std::optional<uint32_t> presentationFamily;
 
 	bool isComplete() {
-		return graphicsFamily.has_value();
+		return graphicsFamily.has_value() && presentationFamily.has_value();
 	}
 };
 
@@ -81,6 +82,9 @@ private:
 			return false;
 		}
 		setupDebugMessenger();
+		if (!createSurface()) {
+			return false;
+		}
 		if (!selectPhysicalDevice()) {
 			return false;
 		}
@@ -102,6 +106,7 @@ private:
 			DestroyDebugUtilsMessengerEXT(mInstance, mDebugMessenger, nullptr);
 		}
 
+		vkDestroySurfaceKHR(mInstance, mSurface, nullptr);
 		vkDestroyInstance(mInstance, nullptr);
 
 		glfwDestroyWindow(mWindow);
@@ -144,6 +149,11 @@ private:
 			std::cout << "\t" << extension.extensionName << std::endl;
 		}
 
+		return result == VK_SUCCESS;
+	}
+
+	bool createSurface() {
+		auto result = glfwCreateWindowSurface(mInstance, mWindow, nullptr, &mSurface);
 		return result == VK_SUCCESS;
 	}
 
@@ -291,6 +301,12 @@ private:
 				indices.graphicsFamily = i;
 			}
 
+			VkBool32 presentSupport = false;
+			vkGetPhysicalDeviceSurfaceSupportKHR(device, i, mSurface, &presentSupport);
+			if (queueFamily.queueCount > 0 && presentSupport) {
+				indices.presentationFamily = i;
+			}
+
 			if (indices.isComplete()) {
 				break;
 			}
@@ -312,6 +328,7 @@ private:
 	VkPhysicalDevice mPhysicalDevice = VK_NULL_HANDLE;
 	VkDevice mDevice;
 	VkQueue mGraphicsQueue;
+	VkSurfaceKHR mSurface;
 };
 
 } // namespace learningvulkan
